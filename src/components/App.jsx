@@ -9,13 +9,22 @@ import Notification from './Notification/Notification';
 
 export const App = () => {
   const [good, setGood] = useState(0);
-  const [neutral, setneutral] = useState(0);
-  const [bad, setbad] = useState(0);
+  const [neutral, setNeutral] = useState(0);
+  const [bad, setBad] = useState(0);
 
   const onBtnClick = feedback => {
-    if (feedback === good) setGood(prevState => prevState + 1)
-    if (feedback === neutral) setneutral(prevState => prevState + 1)
-    if (feedback === bad) setbad(prevState => prevState + 1)
+    if (feedback === 'good') {
+      setGood(prevState => prevState + 1)
+    } else {
+      if (feedback === 'neutral') {
+        setNeutral(prevState => prevState + 1)
+      } else {
+        if (feedback === 'bad')
+        { setBad(prevState => prevState + 1) }
+        return
+      }
+    }
+    
   };
 
   const countTotalFeedback = () => {
@@ -23,8 +32,7 @@ export const App = () => {
   };
 
   const countPositiveFeedback = () => {
-    const total = countTotalFeedback();
-    return Math.round((good * 100) / total);
+    return Math.round((good * 100) / countTotalFeedback());
   };
 
   const feedbacks = ['good', 'neutral', 'bad'];
